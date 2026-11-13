@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -15,30 +14,41 @@
       background: #101b17;
       color: #f2f5f2;
       font-family: Arial, sans-serif;
-      padding: 24px;
+      padding: 24px 20px 110px 20px;
     }
-    main { max-width: 480px; margin: 45px auto; }
-    h1 { font-size: 32px; margin-bottom: 8px; }
-    .subtitle { color: #aab8af; margin-bottom: 28px; }
+    main { max-width: 520px; margin: 24px auto; }
+    h1 { font-size: 30px; margin: 0 0 6px; }
+    h2 { margin: 0 0 12px; font-size: 20px; }
+    .subtitle { color: #aab8af; margin: 0 0 24px; }
     .panel {
       background: #1b2922;
       border: 1px solid #34463a;
       border-radius: 18px;
-      padding: 22px;
-      margin-bottom: 18px;
+      padding: 20px;
+      margin-bottom: 16px;
     }
-    input, button {
+    input, button, textarea, select {
       width: 100%;
       padding: 14px;
       margin: 8px 0;
       border-radius: 10px;
       font-size: 16px;
+      font-family: Arial, sans-serif;
     }
-    input {
+    input, textarea, select {
       background: #101b17;
       border: 1px solid #506354;
-      color: white;
+      color: #ffffff;
     }
+    textarea { min-height: 90px; resize: vertical; }
+    input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      margin: 0 12px 0 0;
+      flex-shrink: 0;
+    }
+    label.check { display: flex; align-items: center; margin: 12px 0; font-size: 16px; }
+    label.field { display: block; margin-top: 14px; color: #c6d9c9; font-size: 14px; }
     button {
       border: 0;
       background: #8dbb91;
@@ -46,13 +56,79 @@
       font-weight: bold;
       cursor: pointer;
     }
-    button.secondary {
-      background: #34463a;
-      color: white;
-    }
-    .hidden { display: none; }
+    button.secondary { background: #34463a; color: #ffffff; }
+    button:disabled { opacity: 0.4; cursor: default; }
+    .hidden { display: none !important; }
     #message { color: #c6d9c9; min-height: 24px; }
     .small { font-size: 13px; color: #aab8af; }
+    .muted { color: #aab8af; }
+    .hint { color: #8dbb91; font-size: 13px; }
+    .note {
+      background: #24382d;
+      border-radius: 12px;
+      padding: 12px;
+      color: #c6d9c9;
+      margin: 12px 0;
+    }
+    .big { font-size: 22px; font-weight: bold; margin: 0 0 6px; }
+    .bar { background: #101b17; border-radius: 8px; height: 10px; overflow: hidden; margin: 8px 0; }
+    .bar > div { background: #8dbb91; height: 100%; width: 0; transition: width 0.3s; }
+    .nav-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .nav-title { flex: 1; text-align: center; text-transform: capitalize; }
+    .icon-btn { width: 44px; margin: 0; padding: 10px 0; background: #34463a; color: #ffffff; font-size: 20px; }
+    .seg { display: flex; gap: 6px; margin-bottom: 16px; }
+    .seg button { margin: 0; background: #34463a; color: #ffffff; padding: 12px 4px; }
+    .seg button.active { background: #8dbb91; color: #102016; }
+    .row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0; border-bottom: 1px solid #2a3a31;
+    }
+    .row:last-child { border-bottom: 0; }
+    .dot {
+      display: inline-block; width: 14px; height: 14px; border-radius: 50%;
+      background: #101b17; border: 1px solid #506354; margin-left: 4px;
+    }
+    .dot.on { background: #8dbb91; border-color: #8dbb91; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat { background: #24382d; border-radius: 12px; padding: 14px; }
+    .stat .num { font-size: 20px; font-weight: bold; }
+    .stat .lbl { color: #aab8af; font-size: 13px; margin-top: 4px; }
+    .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 12px; }
+    .cal .h { font-size: 11px; color: #aab8af; text-align: center; }
+    .cal .c {
+      aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center;
+      justify-content: center; font-size: 13px; background: #101b17; color: #aab8af;
+    }
+    .cal .c.l1 { background: #2c4a36; color: #ffffff; }
+    .cal .c.l2 { background: #3a6346; color: #ffffff; }
+    .cal .c.l3 { background: #4d8159; color: #ffffff; }
+    .cal .c.l4 { background: #6aa174; color: #102016; }
+    .cal .c.l5 { background: #8dbb91; color: #102016; font-weight: bold; }
+    .cal .c.rest { background: #2f4a5a; color: #ffffff; }
+    .item {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 10px 0; border-bottom: 1px solid #2a3a31;
+    }
+    .friend { border-bottom: 1px solid #2a3a31; padding-bottom: 10px; margin-bottom: 6px; }
+    .friend:last-child { border-bottom: 0; }
+    .friend .item { border-bottom: 0; padding-bottom: 2px; }
+    .small-btn { width: auto; margin: 0; padding: 8px 12px; font-size: 14px; }
+    .btns { display: flex; gap: 6px; }
+    .ach { display: flex; gap: 14px; align-items: flex-start; opacity: 0.75; }
+    .ach.ok { opacity: 1; border-color: #8dbb91; }
+    .ach-icon { font-size: 30px; }
+    .ach-text { flex: 1; }
+    .done { color: #8dbb91; font-weight: bold; margin-top: 6px; }
+    ul.plain { padding-left: 20px; margin: 8px 0; line-height: 1.6; }
+    nav {
+      position: fixed; left: 0; right: 0; bottom: 0;
+      display: flex; background: #1b2922; border-top: 1px solid #34463a;
+    }
+    nav button {
+      flex: 1; margin: 0; border-radius: 0; background: transparent;
+      color: #aab8af; font-size: 12px; padding: 16px 2px;
+    }
+    nav button.active { color: #8dbb91; }
   </style>
 </head>
 <body>
@@ -60,49 +136,371 @@
   <h1>La mia ripartenza</h1>
   <p class="subtitle">Un piccolo passo alla volta.</p>
 
+  <!-- ACCESSO -->
   <section class="panel" id="loginPanel">
     <h2>Accedi</h2>
-    <input id="username" placeholder="Nome utente" autocomplete="username">
+    <input id="username" placeholder="Nome utente" autocomplete="username" autocapitalize="none">
     <input id="password" type="password" placeholder="Password" autocomplete="current-password">
     <button id="loginButton">Accedi</button>
     <button class="secondary" id="registerButton">Crea un account</button>
     <p class="small">Non serve inserire email o numero di telefono.</p>
   </section>
 
-  <section class="panel hidden" id="homePanel">
-    <h2>Benvenuto!</h2>
-    <p id="welcome"></p>
-    <p>La tua ripartenza comincia da oggi.</p>
-    <button class="secondary" id="logoutButton">Esci dall'account</button>
-  </section>
+  <!-- APP (visibile dopo l'accesso) -->
+  <div id="appArea" class="hidden">
+
+    <!-- OGGI -->
+    <section class="tab" id="tab-oggi">
+      <div class="panel">
+        <h2 id="welcome"></h2>
+        <div class="nav-row">
+          <button class="icon-btn" id="prevDay" aria-label="Giorno precedente">‹</button>
+          <div class="nav-title" id="todayDate"></div>
+          <button class="icon-btn" id="nextDay" aria-label="Giorno successivo">›</button>
+        </div>
+        <div class="note">
+          <div id="liveText"></div>
+          <div class="bar"><div id="liveBar"></div></div>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="rest"> Questa è una giornata di riposo
+        </label>
+        <div class="note hidden" id="restNote">
+          Riposare fa parte del percorso. Va benissimo così. 💚
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Movimento</h2>
+        <label class="field" for="walk">Minuti di camminata</label>
+        <input id="walk" type="number" min="0" inputmode="numeric" placeholder="0">
+        <div class="hint" id="hintWalk"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Alimentazione</h2>
+        <label class="check">
+          <input type="checkbox" id="mealsOk"> Ho mangiato in modo regolare
+        </label>
+        <label class="field" for="mealsNotes">Pasti (facoltativo)</label>
+        <textarea id="mealsNotes" placeholder="Cosa ho mangiato oggi..."></textarea>
+      </div>
+
+      <div class="panel">
+        <h2>Attività piacevole</h2>
+        <label class="field" for="pleasantText">Cosa hai fatto?</label>
+        <input id="pleasantText" placeholder="Per esempio: leggere, disegnare...">
+        <label class="field" for="pleasantMin">Minuti</label>
+        <input id="pleasantMin" type="number" min="0" inputmode="numeric" placeholder="0">
+        <div class="hint" id="hintPleasant"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Cura di me</h2>
+        <label class="check">
+          <input type="checkbox" id="hygiene"> Mi sono preso cura della mia igiene personale
+        </label>
+        <label class="field" for="sleep">Ore di sonno</label>
+        <input id="sleep" type="number" min="0" max="24" step="0.5" inputmode="decimal" placeholder="0">
+        <div class="hint" id="hintSleep"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Come sto</h2>
+        <label class="field" for="mood">Umore</label>
+        <select id="mood">
+          <option value="">Scegli...</option>
+          <option value="1">1 - Molto giù</option>
+          <option value="2">2 - Giù</option>
+          <option value="3">3 - Così così</option>
+          <option value="4">4 - Bene</option>
+          <option value="5">5 - Molto bene</option>
+        </select>
+        <label class="field" for="energy">Energia</label>
+        <select id="energy">
+          <option value="">Scegli...</option>
+          <option value="1">1 - Molto bassa</option>
+          <option value="2">2 - Bassa</option>
+          <option value="3">3 - Media</option>
+          <option value="4">4 - Buona</option>
+          <option value="5">5 - Alta</option>
+        </select>
+      </div>
+
+      <div class="panel">
+        <h2>Diario privato</h2>
+        <p class="small">Solo tu puoi leggerlo. Non viene mai condiviso.</p>
+        <textarea id="diary" placeholder="Scrivi quello che vuoi..."></textarea>
+        <label class="field" for="quote">Frase del giorno</label>
+        <input id="quote" placeholder="Una frase che ti accompagna oggi">
+      </div>
+
+      <button id="saveButton" disabled>Salva la giornata</button>
+    </section>
+
+    <!-- STORICO -->
+    <section class="tab hidden" id="tab-storico">
+      <div class="seg" id="histSeg">
+        <button data-view="week" class="active">Settimana</button>
+        <button data-view="month">Mese</button>
+        <button data-view="total">Totale</button>
+      </div>
+      <div id="histBody"></div>
+    </section>
+
+    <!-- TRAGUARDI -->
+    <section class="tab hidden" id="tab-traguardi">
+      <div id="achBody"></div>
+    </section>
+
+    <!-- AMICI -->
+    <section class="tab hidden" id="tab-amici">
+      <div class="panel">
+        <h2>Cerca un amico</h2>
+        <input id="friendSearch" placeholder="Nome utente" autocapitalize="none" autocomplete="off">
+        <button id="searchButton">Cerca</button>
+        <div id="searchResults"></div>
+      </div>
+      <div id="friendsBody"></div>
+      <p class="small">Agli amici accettati arriva solo il riepilogo della settimana (quanti obiettivi hai raggiunto). Pasti, diario, igiene, umore e tutto il resto restano solo tuoi.</p>
+    </section>
+
+    <!-- IMPOSTAZIONI -->
+    <section class="tab hidden" id="tab-impostazioni">
+      <div class="panel">
+        <h2>I miei obiettivi</h2>
+        <p class="small">Ogni giorno hai 5 obiettivi. Scegli tu le soglie.</p>
+        <label class="field" for="setWalk">Minuti di camminata al giorno</label>
+        <input id="setWalk" type="number" min="1" max="600" inputmode="numeric">
+        <label class="field" for="setPleasant">Minuti di attività piacevole al giorno</label>
+        <input id="setPleasant" type="number" min="1" max="600" inputmode="numeric">
+        <label class="field" for="setSleep">Ore di sonno</label>
+        <input id="setSleep" type="number" min="1" max="24" step="0.5" inputmode="decimal">
+        <button id="saveSettings">Salva gli obiettivi</button>
+        <p class="small">Le modifiche valgono per le giornate che salvi da ora in poi. Quelle passate restano com'erano.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Come funziona</h2>
+        <p>I 5 obiettivi di ogni giornata:</p>
+        <ul class="plain">
+          <li>Camminare i minuti che hai scelto</li>
+          <li>Mangiare in modo regolare</li>
+          <li>Fare un'attività piacevole per i minuti scelti</li>
+          <li>Prendersi cura dell'igiene personale</li>
+          <li>Dormire le ore che hai scelto</li>
+        </ul>
+        <p>In una settimana sono al massimo 35. I livelli:</p>
+        <ul class="plain">
+          <li>da 30: settimana stupenda</li>
+          <li>da 25: bene</li>
+          <li>da 20: ci sta</li>
+          <li>da 15: bene ma da migliorare</li>
+          <li>da 10: continua così, ma migliorando molto</li>
+        </ul>
+        <p class="small">I giorni di riposo non pesano: il totale della settimana si adatta.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Account</h2>
+        <p id="accountName" class="muted"></p>
+        <button class="secondary" id="logoutButton">Esci dall'account</button>
+      </div>
+    </section>
+  </div>
 
   <p id="message"></p>
 </main>
 
+<nav id="nav" class="hidden">
+  <button data-tab="oggi" class="active">Oggi</button>
+  <button data-tab="storico">Storico</button>
+  <button data-tab="traguardi">Traguardi</button>
+  <button data-tab="amici">Amici</button>
+  <button data-tab="impostazioni">Impost.</button>
+</nav>
+
 <script>
-  // INSERISCI QUI I TUOI DATI SUPABASE
+  // ===== I TUOI DATI SUPABASE =====
   const SUPABASE_URL = "https://mlvbtjqshaeqcynujtal.supabase.co";
   const SUPABASE_KEY = "sb_publishable_XwP9_JfNcMjYz__d-5_LGQ_Ozr9gdAM";
 
-  const db = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ===== Costanti e stato =====
+  const SETTINGS_DATE = "1900-01-01";   // riga speciale in daily_entries che contiene le impostazioni
+  const DEFAULT_SETTINGS = { walk: 20, pleasant: 15, sleep: 7 };
+  const GOALS_PER_DAY = 5;
+  const WEEK_MAX = 35;
 
   const $ = id => document.getElementById(id);
-  const syntheticEmail = username =>
-    username.toLowerCase() + "@login.lamiaripartenza.app";
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const syntheticEmail = username => username.toLowerCase() + "@login.lamiaripartenza.app";
 
-  function showMessage(text) {
-    $("message").textContent = text;
+  function showMessage(text) { $("message").textContent = text; }
+
+  // ===== Date =====
+  const pad = n => String(n).padStart(2, "0");
+  const fmt = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  const parse = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d, 12, 0, 0); };
+  const addDays = (s, n) => { const d = parse(s); d.setDate(d.getDate() + n); return fmt(d); };
+  const todayStr = () => fmt(new Date());
+  const mondayOf = s => { const d = parse(s); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return fmt(d); };
+  const shortDate = d => d.toLocaleDateString("it-IT", { day: "numeric", month: "short" });
+  const rangeText = ws => shortDate(parse(ws)) + " – " + shortDate(parse(addDays(ws, 6)));
+  const fmtMin = m => m >= 60 ? Math.floor(m / 60) + " h " + (m % 60) + " min" : m + " min";
+
+  const state = {
+    userId: null,
+    username: "",
+    settings: { ...DEFAULT_SETTINGS },
+    entries: {},          // "AAAA-MM-GG" -> dati della giornata
+    friendships: [],      // righe della tabella friendships
+    names: {},            // id utente -> username
+    searchResults: null,
+    day: todayStr(),
+    weekStart: mondayOf(todayStr()),
+    monthKey: todayStr().slice(0, 7),
+    histView: "week"
+  };
+
+  // ===== Calcolo degli obiettivi =====
+  const countTrue = a => a.filter(Boolean).length;
+
+  // I 5 obiettivi del giorno: camminata, pasti, attività piacevole, igiene, sonno
+  function dayGoals(d, fallback) {
+    const t = d.targets || fallback;
+    return [
+      (d.walk_minutes || 0) >= t.walk,
+      !!d.meals_regular,
+      (d.pleasant_minutes || 0) >= t.pleasant,
+      !!d.hygiene,
+      (d.sleep_hours || 0) >= t.sleep
+    ];
   }
 
-  function showHome(username) {
+  // Riepilogo di una settimana (lunedì-domenica). I giorni di riposo non pesano sul totale.
+  function computeWeek(ws) {
+    let done = 0, rest = 0, logged = 0;
+    for (let i = 0; i < 7; i++) {
+      const d = state.entries[addDays(ws, i)];
+      if (!d) continue;
+      logged++;
+      if (d.rest_day) rest++;
+      else done += countTrue(dayGoals(d, state.settings));
+    }
+    return { done, rest, logged, total: WEEK_MAX - rest * GOALS_PER_DAY };
+  }
+
+  // Porta il risultato su scala 35, così i livelli valgono anche con giorni di riposo
+  const scaled = (done, total) => total > 0 ? Math.min(WEEK_MAX, Math.round(done / total * WEEK_MAX)) : 0;
+
+  function levelFor(n) {
+    if (n >= 30) return { emoji: "🌟", label: "Settimana stupenda!" };
+    if (n >= 25) return { emoji: "😊", label: "Bene!" };
+    if (n >= 20) return { emoji: "🙂", label: "Ci sta" };
+    if (n >= 15) return { emoji: "🌱", label: "Bene, ma da migliorare" };
+    if (n >= 10) return { emoji: "💪", label: "Continua così, ma migliorando molto" };
+    return { emoji: "💚", label: "Ogni piccolo passo conta: si riparte da qui" };
+  }
+
+  function totals() {
+    const t = { days: 0, goals: 0, walk: 0, pleasant: 0, rest: 0, fullDays: 0,
+      pleasantDays: 0, hygieneDays: 0, sleepOk: 0, sleepSum: 0, sleepDays: 0 };
+    for (const d of Object.values(state.entries)) {
+      t.days++;
+      t.walk += d.walk_minutes || 0;
+      t.pleasant += d.pleasant_minutes || 0;
+      if (d.sleep_hours > 0) { t.sleepSum += d.sleep_hours; t.sleepDays++; }
+      if (d.rest_day) { t.rest++; continue; }
+      const g = dayGoals(d, state.settings);
+      const n = countTrue(g);
+      t.goals += n;
+      if (n === GOALS_PER_DAY) t.fullDays++;
+      if (g[2]) t.pleasantDays++;
+      if (g[3]) t.hygieneDays++;
+      if (g[4]) t.sleepOk++;
+    }
+    return t;
+  }
+
+  // Settimane concluse (esclusa quella in corso)
+  function weeksSummary() {
+    const res = { weeks: 0, great: 0, good: 0, best: null };
+    const dates = Object.keys(state.entries).sort();
+    if (!dates.length) return res;
+    const lastDone = addDays(mondayOf(todayStr()), -7);
+    for (let ws = mondayOf(dates[0]); ws <= lastDone; ws = addDays(ws, 7)) {
+      const w = computeWeek(ws);
+      if (w.logged === 0 || w.total === 0) continue;
+      const n = scaled(w.done, w.total);
+      res.weeks++;
+      if (n >= 30) res.great++;
+      if (n >= 25) res.good++;
+      if (!res.best || n > res.best.n) res.best = { ws, n, done: w.done, total: w.total };
+    }
+    return res;
+  }
+
+  // ===== Schede (tab) =====
+  function showTab(name) {
+    document.querySelectorAll(".tab").forEach(t => t.classList.add("hidden"));
+    $("tab-" + name).classList.remove("hidden");
+    document.querySelectorAll("nav button").forEach(b => {
+      b.classList.toggle("active", b.dataset.tab === name);
+    });
+    showMessage("");
+    if (name === "storico") renderHistory();
+    if (name === "traguardi") renderAchievements();
+    if (name === "amici") renderFriends();
+    if (name === "impostazioni") renderSettings();
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll("nav button").forEach(b => { b.onclick = () => showTab(b.dataset.tab); });
+
+  // ===== Entrata e uscita =====
+  async function enterApp(userId, username) {
+    state.userId = userId;
+    state.username = username;
+    state.entries = {};
+    state.friendships = [];
+    state.names = {};
+    state.searchResults = null;
+    state.settings = { ...DEFAULT_SETTINGS };
+    state.day = todayStr();
+    state.weekStart = mondayOf(todayStr());
+    state.monthKey = todayStr().slice(0, 7);
+
     $("loginPanel").classList.add("hidden");
-    $("homePanel").classList.remove("hidden");
+    $("appArea").classList.remove("hidden");
+    $("nav").classList.remove("hidden");
     $("welcome").textContent = "Ciao, " + username + "!";
+    $("accountName").textContent = "Accesso come " + username;
+    $("saveButton").disabled = true;
+    showTab("oggi");
+    showMessage("Carico i tuoi dati...");
+
+    const ok = await loadAll();
+    updateHints();
+    loadDay();
+    if (ok) {
+      $("saveButton").disabled = false;
+      showMessage("");
+    } else {
+      showMessage("Non riesco a leggere i tuoi dati. Ricarica la pagina e riprova.");
+    }
   }
 
+  function leaveApp() {
+    state.userId = null;
+    $("appArea").classList.add("hidden");
+    $("nav").classList.add("hidden");
+    $("loginPanel").classList.remove("hidden");
+    $("password").value = "";
+  }
+
+  // ===== Registrazione, accesso, uscita =====
   $("registerButton").onclick = async () => {
     const username = $("username").value.trim().toLowerCase();
     const password = $("password").value;
@@ -125,8 +523,7 @@
     if (error) return showMessage(error.message);
 
     if (data.session) {
-      showHome(username);
-      showMessage("Account creato!");
+      await enterApp(data.user.id, username);
     } else {
       showMessage("Registrazione avviata. Controlliamo la configurazione.");
     }
@@ -149,27 +546,552 @@
 
     if (error) return showMessage("Accesso non riuscito: controlla i dati.");
 
-    showHome(username);
-    showMessage("Accesso effettuato!");
+    await enterApp(data.user.id, username);
   };
 
   $("logoutButton").onclick = async () => {
     await db.auth.signOut();
-    $("homePanel").classList.add("hidden");
-    $("loginPanel").classList.remove("hidden");
+    leaveApp();
     showMessage("Hai effettuato la disconnessione.");
   };
 
-  db.auth.getSession().then(async ({ data }) => {
-    if (data.session) {
-      const { data: profile } = await db
-        .from("profiles")
-        .select("username")
-        .eq("id", data.session.user.id)
-        .single();
+  // ===== Caricamento dati =====
+  async function loadAll() {
+    const [e, f] = await Promise.all([
+      db.from("daily_entries").select("entry_date,data").eq("user_id", state.userId),
+      db.from("friendships").select("id,requester_id,addressee_id,status,created_at")
+    ]);
+    if (e.error) return false;
 
-      if (profile) showHome(profile.username);
+    (e.data || []).forEach(r => {
+      if (r.entry_date === SETTINGS_DATE) state.settings = { ...DEFAULT_SETTINGS, ...(r.data || {}) };
+      else state.entries[r.entry_date] = r.data || {};
+    });
+    state.friendships = f.error ? [] : (f.data || []);
+    await loadNames();
+    return true;
+  }
+
+  async function loadNames() {
+    const ids = [...new Set(state.friendships.flatMap(f => [f.requester_id, f.addressee_id]))]
+      .filter(id => id !== state.userId && !state.names[id]);
+    if (!ids.length) return;
+    const { data } = await db.from("profiles").select("id,username").in("id", ids);
+    (data || []).forEach(p => { state.names[p.id] = p.username; });
+  }
+
+  // ===== OGGI =====
+  function readForm() {
+    const num = id => Math.max(0, Number($(id).value) || 0);
+    return {
+      rest_day: $("rest").checked,
+      walk_minutes: num("walk"),
+      meals_regular: $("mealsOk").checked,
+      meals_notes: $("mealsNotes").value.trim(),
+      pleasant_text: $("pleasantText").value.trim(),
+      pleasant_minutes: num("pleasantMin"),
+      hygiene: $("hygiene").checked,
+      sleep_hours: Math.min(24, num("sleep")),
+      mood: $("mood").value ? Number($("mood").value) : null,
+      energy: $("energy").value ? Number($("energy").value) : null,
+      diary: $("diary").value.trim(),
+      quote: $("quote").value.trim()
+    };
+  }
+
+  function fillForm(d) {
+    $("rest").checked = !!d.rest_day;
+    $("walk").value = d.walk_minutes || "";
+    $("mealsOk").checked = !!d.meals_regular;
+    $("mealsNotes").value = d.meals_notes || "";
+    $("pleasantText").value = d.pleasant_text || "";
+    $("pleasantMin").value = d.pleasant_minutes || "";
+    $("hygiene").checked = !!d.hygiene;
+    $("sleep").value = d.sleep_hours || "";
+    $("mood").value = d.mood || "";
+    $("energy").value = d.energy || "";
+    $("diary").value = d.diary || "";
+    $("quote").value = d.quote || "";
+  }
+
+  function updateHints() {
+    const s = state.settings;
+    $("hintWalk").textContent = "Obiettivo: " + s.walk + " minuti";
+    $("hintPleasant").textContent = "Obiettivo: " + s.pleasant + " minuti";
+    $("hintSleep").textContent = "Obiettivo: " + s.sleep + " ore";
+  }
+
+  function updateLive() {
+    const d = readForm();
+    $("restNote").classList.toggle("hidden", !d.rest_day);
+    if (d.rest_day) {
+      $("liveText").textContent = "Giornata di riposo: nessun obiettivo da raggiungere.";
+      $("liveBar").style.width = "0%";
+      return;
     }
+    const n = countTrue(dayGoals(d, state.settings));
+    $("liveText").textContent = "Obiettivi di questa giornata: " + n + " su " + GOALS_PER_DAY;
+    $("liveBar").style.width = (n / GOALS_PER_DAY * 100) + "%";
+  }
+
+  function loadDay() {
+    fillForm(state.entries[state.day] || {});
+    const label = parse(state.day).toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" });
+    $("todayDate").textContent = (state.day === todayStr() ? "Oggi, " : "") + label;
+    $("nextDay").disabled = state.day >= todayStr();
+    updateLive();
+  }
+
+  function changeDay(n) {
+    const nd = addDays(state.day, n);
+    if (nd > todayStr()) return;
+    state.day = nd;
+    showMessage("");
+    loadDay();
+  }
+  $("prevDay").onclick = () => changeDay(-1);
+  $("nextDay").onclick = () => changeDay(1);
+  $("tab-oggi").addEventListener("input", updateLive);
+  $("tab-oggi").addEventListener("change", updateLive);
+
+  // Aggiorna il riepilogo settimanale (è l'unica cosa che vedono gli amici)
+  async function syncWeek(ws) {
+    const w = computeWeek(ws);
+    const { error } = await db.from("weekly_summaries").upsert(
+      {
+        user_id: state.userId,
+        week_start: ws,
+        goals_done: w.done,
+        goals_total: w.total,
+        rest_day: w.rest > 0,
+        updated_at: new Date().toISOString()
+      },
+      { onConflict: "user_id,week_start" }
+    );
+    return error;
+  }
+
+  $("saveButton").onclick = async () => {
+    const data = readForm();
+    data.targets = { ...state.settings };   // ricordo gli obiettivi usati in quella giornata
+    const day = state.day;
+
+    showMessage("Salvataggio in corso...");
+
+    const { error } = await db.from("daily_entries").upsert(
+      { user_id: state.userId, entry_date: day, data, updated_at: new Date().toISOString() },
+      { onConflict: "user_id,entry_date" }
+    );
+    if (error) return showMessage("Non è stato possibile salvare: " + error.message);
+
+    state.entries[day] = data;
+    const err2 = await syncWeek(mondayOf(day));
+
+    if (err2) showMessage("Giornata salvata ✓ (il riepilogo della settimana si aggiornerà al prossimo salvataggio)");
+    else if (data.rest_day) showMessage("Giornata di riposo salvata ✓ Te la sei meritata 💚");
+    else showMessage("Giornata salvata ✓ Bel lavoro!");
+  };
+
+  // ===== STORICO =====
+  function levelBlock(done, total, complete, rest) {
+    if (total === 0) {
+      return `<p class="big">Settimana di riposo 💤</p><p class="muted">Ogni tanto fermarsi fa bene.</p>`;
+    }
+    const pct = Math.round(done / total * 100);
+    let h = `<p class="big">${done} obiettivi su ${total}</p>`;
+    h += `<div class="bar"><div style="width:${pct}%"></div></div>`;
+    if (rest > 0) {
+      h += `<p class="muted">Include ${rest} ${rest === 1 ? "giorno" : "giorni"} di riposo: non pesano sul totale.</p>`;
+    }
+    if (complete) {
+      const lv = levelFor(scaled(done, total));
+      h += `<div class="note"><strong>${lv.emoji} ${esc(lv.label)}</strong></div>`;
+    } else {
+      h += `<p class="muted">Settimana in corso: il livello arriva a fine settimana.</p>`;
+    }
+    return h;
+  }
+
+  function weekHtml() {
+    const ws = state.weekStart;
+    const w = computeWeek(ws);
+    const thisWeek = mondayOf(todayStr());
+    const complete = addDays(ws, 6) < todayStr();
+    let h = `<div class="panel"><div class="nav-row">
+      <button class="icon-btn" data-act="prev">‹</button>
+      <div class="nav-title">${esc(rangeText(ws))}${ws === thisWeek ? " · questa settimana" : ""}</div>
+      <button class="icon-btn" data-act="next" ${ws >= thisWeek ? "disabled" : ""}>›</button>
+    </div>`;
+    h += levelBlock(w.done, w.total, complete, w.rest);
+    h += `</div><div class="panel"><h2>Giorno per giorno</h2>`;
+    for (let i = 0; i < 7; i++) {
+      const date = addDays(ws, i);
+      const d = state.entries[date];
+      const label = parse(date).toLocaleDateString("it-IT", { weekday: "short", day: "numeric" });
+      let right;
+      if (!d) right = `<span class="muted">non registrato</span>`;
+      else if (d.rest_day) right = `<span>Riposo 💤</span>`;
+      else {
+        const g = dayGoals(d, state.settings);
+        right = `<span>${g.map(x => `<span class="dot ${x ? "on" : ""}"></span>`).join("")}
+          <span class="muted"> ${countTrue(g)}/${GOALS_PER_DAY}</span></span>`;
+      }
+      h += `<div class="row"><span style="text-transform:capitalize">${esc(label)}</span>${right}</div>`;
+    }
+    h += `</div>`;
+    return h;
+  }
+
+  function monthHtml() {
+    const [y, m] = state.monthKey.split("-").map(Number);
+    const first = new Date(y, m - 1, 1, 12);
+    const daysInMonth = new Date(y, m, 0).getDate();
+    const title = first.toLocaleDateString("it-IT", { month: "long", year: "numeric" });
+    const canNext = state.monthKey < todayStr().slice(0, 7);
+
+    let logged = 0, goals = 0, walk = 0, pleasant = 0, rest = 0, sleepSum = 0, sleepDays = 0;
+    let cells = "";
+    ["L", "M", "M", "G", "V", "S", "D"].forEach(l => { cells += `<div class="h">${l}</div>`; });
+    for (let i = 0; i < (first.getDay() + 6) % 7; i++) cells += `<div></div>`;
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = y + "-" + pad(m) + "-" + pad(day);
+      const d = state.entries[date];
+      let cls = "";
+      if (d) {
+        logged++;
+        walk += d.walk_minutes || 0;
+        pleasant += d.pleasant_minutes || 0;
+        if (d.sleep_hours > 0) { sleepSum += d.sleep_hours; sleepDays++; }
+        if (d.rest_day) { rest++; cls = "rest"; }
+        else {
+          const n = countTrue(dayGoals(d, state.settings));
+          goals += n;
+          cls = "l" + n;
+        }
+      }
+      cells += `<div class="c ${cls}">${day}</div>`;
+    }
+
+    const sleepAvg = sleepDays ? (sleepSum / sleepDays).toFixed(1).replace(".", ",") + " h" : "–";
+    const stat = (num, lbl) => `<div class="stat"><div class="num">${esc(num)}</div><div class="lbl">${esc(lbl)}</div></div>`;
+
+    return `<div class="panel">
+      <div class="nav-row">
+        <button class="icon-btn" data-act="prev">‹</button>
+        <div class="nav-title">${esc(title)}</div>
+        <button class="icon-btn" data-act="next" ${canNext ? "" : "disabled"}>›</button>
+      </div>
+      <div class="cal">${cells}</div>
+      <p class="small">Più il verde è intenso, più obiettivi hai raggiunto quel giorno. Il blu è un giorno di riposo.</p>
+    </div>
+    <div class="panel"><div class="stats">
+      ${stat(logged, "giornate registrate")}
+      ${stat(goals, "obiettivi raggiunti")}
+      ${stat(fmtMin(walk), "di camminata")}
+      ${stat(fmtMin(pleasant), "di attività piacevole")}
+      ${stat(sleepAvg, "sonno medio")}
+      ${stat(rest, "giorni di riposo")}
+    </div></div>`;
+  }
+
+  function totalHtml() {
+    const t = totals();
+    if (!t.days) {
+      return `<div class="panel"><h2>Da quando hai iniziato</h2>
+        <p class="muted">Quando salverai la tua prima giornata, qui vedrai i tuoi progressi.</p></div>`;
+    }
+    const w = weeksSummary();
+    const sleepAvg = t.sleepDays ? (t.sleepSum / t.sleepDays).toFixed(1).replace(".", ",") + " h" : "–";
+    const stat = (num, lbl) => `<div class="stat"><div class="num">${esc(num)}</div><div class="lbl">${esc(lbl)}</div></div>`;
+    let h = `<div class="panel"><h2>Da quando hai iniziato</h2><div class="stats">
+      ${stat(t.days, "giornate registrate")}
+      ${stat(t.goals, "obiettivi raggiunti")}
+      ${stat(t.fullDays, "giornate con tutti e 5")}
+      ${stat(fmtMin(t.walk), "di camminata")}
+      ${stat(fmtMin(t.pleasant), "di attività piacevole")}
+      ${stat(sleepAvg, "sonno medio")}
+      ${stat(t.rest, "giorni di riposo")}
+      ${stat(w.weeks, "settimane concluse")}
+      ${stat(w.great, "settimane stupende")}
+      ${stat(w.good, "settimane «bene» o meglio")}
+    </div></div>`;
+    if (w.best) {
+      h += `<div class="panel"><h2>La tua migliore settimana</h2>
+        <p class="big">${w.best.done} su ${w.best.total}</p>
+        <p class="muted">${esc(rangeText(w.best.ws))}</p></div>`;
+    }
+    return h;
+  }
+
+  function renderHistory() {
+    document.querySelectorAll("#histSeg button").forEach(b => {
+      b.classList.toggle("active", b.dataset.view === state.histView);
+    });
+    $("histBody").innerHTML =
+      state.histView === "week" ? weekHtml() :
+      state.histView === "month" ? monthHtml() : totalHtml();
+  }
+
+  $("histSeg").addEventListener("click", e => {
+    const b = e.target.closest("button[data-view]");
+    if (!b) return;
+    state.histView = b.dataset.view;
+    renderHistory();
+  });
+
+  $("histBody").addEventListener("click", e => {
+    const b = e.target.closest("button[data-act]");
+    if (!b || b.disabled) return;
+    const dir = b.dataset.act === "prev" ? -1 : 1;
+    if (state.histView === "week") {
+      const n = addDays(state.weekStart, 7 * dir);
+      if (n <= mondayOf(todayStr())) state.weekStart = n;
+    } else if (state.histView === "month") {
+      const [y, m] = state.monthKey.split("-").map(Number);
+      const d = new Date(y, m - 1 + dir, 1);
+      const key = d.getFullYear() + "-" + pad(d.getMonth() + 1);
+      if (key <= todayStr().slice(0, 7)) state.monthKey = key;
+    }
+    renderHistory();
+  });
+
+  // ===== TRAGUARDI =====
+  function achievements() {
+    const t = totals();
+    const w = weeksSummary();
+    const friends = state.friendships.filter(f => f.status === "accepted").length;
+    return [
+      { icon: "🌱", title: "Primo passo", desc: "Registra la tua prima giornata", cur: t.days, goal: 1 },
+      { icon: "📅", title: "Una settimana insieme", desc: "Registra 7 giornate", cur: t.days, goal: 7 },
+      { icon: "🗓️", title: "Un mese di ripartenza", desc: "Registra 30 giornate", cur: t.days, goal: 30 },
+      { icon: "⭐", title: "Giornata piena", desc: "Raggiungi tutti e 5 gli obiettivi in un giorno", cur: t.fullDays, goal: 1 },
+      { icon: "🚶", title: "Cento minuti a piedi", desc: "100 minuti di camminata in totale", cur: t.walk, goal: 100 },
+      { icon: "🥾", title: "Dieci ore a piedi", desc: "600 minuti di camminata in totale", cur: t.walk, goal: 600 },
+      { icon: "🎨", title: "Tempo per te", desc: "5 giornate con un'attività piacevole", cur: t.pleasantDays, goal: 5 },
+      { icon: "🧼", title: "Cura di sé", desc: "7 giornate con l'igiene personale", cur: t.hygieneDays, goal: 7 },
+      { icon: "😴", title: "Buon riposo", desc: "5 notti con il sonno che volevi", cur: t.sleepOk, goal: 5 },
+      { icon: "💤", title: "Saper riposare", desc: "Segna la tua prima giornata di riposo: anche fermarsi è un traguardo", cur: t.rest, goal: 1 },
+      { icon: "😊", title: "Settimana «bene»", desc: "Chiudi una settimana con livello «bene» o meglio", cur: w.good, goal: 1 },
+      { icon: "🏆", title: "Settimana stupenda", desc: "Chiudi una settimana con livello «stupenda»", cur: w.great, goal: 1 },
+      { icon: "🤝", title: "Non sei solo", desc: "Ottieni il tuo primo amico", cur: friends, goal: 1 }
+    ];
+  }
+
+  function renderAchievements() {
+    const list = achievements();
+    const got = list.filter(a => a.cur >= a.goal).length;
+    let h = `<div class="panel"><h2>I miei traguardi</h2>
+      <p class="muted">${got} su ${list.length} raggiunti. Ognuno è un passo avanti. 💚</p></div>`;
+    list.forEach(a => {
+      const ok = a.cur >= a.goal;
+      const pct = Math.min(100, Math.round(a.cur / a.goal * 100));
+      h += `<div class="panel ach ${ok ? "ok" : ""}">
+        <div class="ach-icon">${a.icon}</div>
+        <div class="ach-text">
+          <strong>${esc(a.title)}</strong>
+          <div class="muted">${esc(a.desc)}</div>
+          ${ok
+            ? `<div class="done">✓ Raggiunto</div>`
+            : `<div class="bar"><div style="width:${pct}%"></div></div><div class="small">${a.cur} / ${a.goal}</div>`}
+        </div>
+      </div>`;
+    });
+    $("achBody").innerHTML = h;
+  }
+
+  // ===== AMICI =====
+  const relationWith = uid => state.friendships.find(f => f.requester_id === uid || f.addressee_id === uid);
+
+  function friendLine(s) {
+    if (s.goals_total === 0) {
+      return (s.week_start === mondayOf(todayStr()) ? "Questa settimana" : "Settimana scorsa") + ": riposo 💤";
+    }
+    const base = s.goals_done + " su " + s.goals_total + " obiettivi";
+    if (s.week_start === mondayOf(todayStr())) return "Questa settimana: " + base + " (in corso)";
+    const lv = levelFor(scaled(s.goals_done, s.goals_total));
+    return "Settimana scorsa: " + base + " · " + lv.emoji + " " + lv.label;
+  }
+
+  async function loadFriendSummaries(ids) {
+    if (!ids.length) return;
+    const { data, error } = await db.from("weekly_summaries")
+      .select("user_id,week_start,goals_done,goals_total,rest_day")
+      .in("user_id", ids)
+      .gte("week_start", addDays(mondayOf(todayStr()), -7))
+      .order("week_start", { ascending: false });
+    ids.forEach(id => {
+      const el = document.getElementById("fs-" + id);
+      if (!el) return;
+      if (error) { el.textContent = "Riepilogo non disponibile."; return; }
+      const mine = (data || []).filter(s => s.user_id === id).slice(0, 2);
+      el.innerHTML = mine.length
+        ? mine.map(s => esc(friendLine(s))).join("<br>")
+        : "Nessun riepilogo ancora.";
+    });
+  }
+
+  function renderSearchResults() {
+    const box = $("searchResults");
+    if (state.searchResults === null) { box.innerHTML = ""; return; }
+    if (!state.searchResults.length) { box.innerHTML = `<p class="muted">Nessun utente trovato.</p>`; return; }
+    box.innerHTML = state.searchResults.map(p => {
+      const f = relationWith(p.id);
+      let right;
+      if (!f) right = `<button class="small-btn" data-act="send" data-id="${esc(p.id)}">Invia richiesta</button>`;
+      else if (f.status === "accepted") right = `<span class="muted">✓ Amici</span>`;
+      else if (f.requester_id === state.userId) right = `<span class="muted">Richiesta inviata</span>`;
+      else if (f.status === "pending") right = `<button class="small-btn" data-act="accept" data-id="${esc(f.id)}">Accetta</button>`;
+      else right = `<span class="muted">Non disponibile</span>`;
+      return `<div class="item"><span>${esc(p.username)}</span>${right}</div>`;
+    }).join("");
+  }
+
+  function renderFriends() {
+    const me = state.userId;
+    const other = f => f.requester_id === me ? f.addressee_id : f.requester_id;
+    const incoming = state.friendships.filter(f => f.addressee_id === me && f.status === "pending");
+    const friends = state.friendships.filter(f => f.status === "accepted");
+    let h = "";
+
+    if (incoming.length) {
+      h += `<div class="panel"><h2>Richieste ricevute</h2>`;
+      incoming.forEach(f => {
+        h += `<div class="item"><span>${esc(state.names[f.requester_id] || "utente")}</span>
+          <span class="btns">
+            <button class="small-btn" data-act="accept" data-id="${esc(f.id)}">Accetta</button>
+            <button class="small-btn secondary" data-act="decline" data-id="${esc(f.id)}">Non ora</button>
+          </span></div>`;
+      });
+      h += `</div>`;
+    }
+
+    h += `<div class="panel"><h2>I miei amici</h2>`;
+    if (!friends.length) h += `<p class="muted">Non hai ancora amici. Cerca un nome utente qui sopra.</p>`;
+    friends.forEach(f => {
+      const u = other(f);
+      h += `<div class="friend">
+        <div class="item"><strong>${esc(state.names[u] || "utente")}</strong>
+          <button class="small-btn secondary" data-act="remove" data-id="${esc(f.id)}">Rimuovi</button></div>
+        <div class="muted" id="fs-${esc(u)}">Carico il riepilogo...</div>
+      </div>`;
+    });
+    h += `</div>`;
+
+    $("friendsBody").innerHTML = h;
+    renderSearchResults();
+    loadFriendSummaries(friends.map(other));
+  }
+
+  $("searchButton").onclick = async () => {
+    const q = $("friendSearch").value.trim().toLowerCase();
+    if (!/^[a-z0-9_]{2,20}$/.test(q)) {
+      return showMessage("Scrivi almeno 2 caratteri (lettere, numeri o _).");
+    }
+    showMessage("Cerco...");
+    const { data, error } = await db.from("profiles")
+      .select("id,username")
+      .ilike("username", q + "%")
+      .neq("id", state.userId)
+      .limit(10);
+    if (error) return showMessage("Ricerca non riuscita: " + error.message);
+    showMessage("");
+    state.searchResults = data || [];
+    renderSearchResults();
+  };
+
+  async function sendRequest(uid) {
+    const { data, error } = await db.from("friendships")
+      .insert({ requester_id: state.userId, addressee_id: uid, status: "pending" })
+      .select().single();
+    if (error) {
+      showMessage("Non è stato possibile inviare la richiesta: " + error.message);
+      return renderSearchResults();
+    }
+    const p = (state.searchResults || []).find(x => x.id === uid);
+    if (p) state.names[uid] = p.username;
+    state.friendships.push(data);
+    showMessage("Richiesta inviata ✓");
+    renderFriends();
+  }
+
+  async function respond(id, status) {
+    const { error } = await db.from("friendships").update({ status }).eq("id", id);
+    if (error) {
+      showMessage("Non è stato possibile rispondere: " + error.message);
+      return renderFriends();
+    }
+    const f = state.friendships.find(x => x.id === id);
+    if (f) f.status = status;
+    showMessage(status === "accepted" ? "Ora siete amici ✓" : "Richiesta archiviata.");
+    renderFriends();
+  }
+
+  async function removeFriend(id) {
+    const { error } = await db.from("friendships").delete().eq("id", id);
+    if (error) {
+      showMessage("Non è stato possibile rimuovere: " + error.message);
+      return renderFriends();
+    }
+    state.friendships = state.friendships.filter(x => x.id !== id);
+    showMessage("Amico rimosso.");
+    renderFriends();
+  }
+
+  $("tab-amici").addEventListener("click", async e => {
+    const b = e.target.closest("button[data-act]");
+    if (!b) return;
+    const act = b.dataset.act, id = b.dataset.id;
+    b.disabled = true;
+    if (act === "send") await sendRequest(id);
+    else if (act === "accept") await respond(id, "accepted");
+    else if (act === "decline") await respond(id, "declined");
+    else if (act === "remove") {
+      if (confirm("Vuoi rimuovere questo amico?")) await removeFriend(id);
+      else b.disabled = false;
+    }
+  });
+
+  // ===== IMPOSTAZIONI =====
+  function renderSettings() {
+    $("setWalk").value = state.settings.walk;
+    $("setPleasant").value = state.settings.pleasant;
+    $("setSleep").value = state.settings.sleep;
+  }
+
+  $("saveSettings").onclick = async () => {
+    const s = {
+      walk: Number($("setWalk").value),
+      pleasant: Number($("setPleasant").value),
+      sleep: Number($("setSleep").value)
+    };
+    const okMin = v => v >= 1 && v <= 600;
+    if (!okMin(s.walk) || !okMin(s.pleasant) || !(s.sleep >= 1 && s.sleep <= 24)) {
+      return showMessage("Controlla i valori: minuti da 1 a 600, ore di sonno da 1 a 24.");
+    }
+    showMessage("Salvataggio in corso...");
+    const { error } = await db.from("daily_entries").upsert(
+      { user_id: state.userId, entry_date: SETTINGS_DATE, data: s, updated_at: new Date().toISOString() },
+      { onConflict: "user_id,entry_date" }
+    );
+    if (error) return showMessage("Non è stato possibile salvare: " + error.message);
+    state.settings = s;
+    updateHints();
+    updateLive();
+    showMessage("Obiettivi salvati ✓");
+  };
+
+  // ===== All'apertura: se sei già dentro, entra direttamente =====
+  db.auth.getSession().then(async ({ data }) => {
+    if (!data.session) return;
+    const user = data.session.user;
+    const { data: profile } = await db
+      .from("profiles")
+      .select("username")
+      .eq("id", user.id)
+      .maybeSingle();
+    const username = (profile && profile.username) ||
+      (user.user_metadata && user.user_metadata.username) || "amico";
+    enterApp(user.id, username);
   });
 </script>
 </body>
