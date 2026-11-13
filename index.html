@@ -129,6 +129,59 @@
       color: #aab8af; font-size: 12px; padding: 16px 2px;
     }
     nav button.active { color: #8dbb91; }
+
+    /* ===== Schermata Oggi: due blocchi grandi ===== */
+    .welcome { margin: 0 4px 12px; color: #c6d9c9; font-size: 18px; }
+    .card { border-radius: 22px; padding: 22px; margin-bottom: 18px; border: 1px solid transparent; }
+    .card-oggi { --ac: #f2d36b; background: linear-gradient(160deg, #5b4e19, #463b12); border-color: #e0c050; }
+    .card-diario { --ac: #ffb27a; background: linear-gradient(160deg, #5d3a22, #472c19); border-color: #e8a066; }
+    .card input, .card textarea, .card select {
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .card .icon-btn { background: rgba(255, 255, 255, 0.12); }
+    .card-title { font-size: 26px; margin: 4px 0 6px; }
+    .live-text { color: #c6d9c9; font-size: 15px; }
+    .card-diario label.field, .card-diario .small { color: #ffdcc2; }
+    .card-diario .sub { margin: 20px 0 0; font-size: 18px; color: #ffffff; }
+    .goal {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 0; border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .goal.tap { cursor: pointer; }
+    .goal-mark {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid rgba(255, 255, 255, 0.35); color: transparent;
+      display: flex; align-items: center; justify-content: center; font-weight: bold;
+    }
+    .goal.met .goal-mark { background: var(--ac); border-color: var(--ac); color: #1a1a1a; }
+    .goal-text { flex: 1; min-width: 0; }
+    .goal-text strong { font-size: 16px; }
+    .goal-text .hint { color: var(--ac); margin-top: 2px; }
+    .goal-input { display: flex; align-items: center; gap: 6px; color: #c6d9c9; }
+    .goal-input input { width: 84px; margin: 0; padding: 10px 6px; text-align: center; }
+    input.sr { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+    .mini { margin: 0 0 12px 42px; width: calc(100% - 42px); min-height: 0; padding: 10px; font-size: 14px; }
+    .rest-toggle {
+      display: flex; align-items: center; margin-top: 8px; padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 16px;
+    }
+    .card-oggi.resting .goal { opacity: 0.45; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .save-bar {
+      position: sticky; bottom: 62px; z-index: 5; padding: 10px 0 4px;
+      background: linear-gradient(to top, #101b17 65%, rgba(16, 27, 23, 0));
+    }
+    .save-bar button { margin: 0; padding: 16px; font-size: 17px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45); }
+
+    /* ===== Riquadri colorati dentro i blocchi ===== */
+    .card .bar > div { background: var(--ac); }
+    .inner { border-radius: 16px; padding: 14px 16px 8px; margin: 16px 0 6px; border: 1px solid transparent; }
+    .inner .sub { margin: 0 0 4px; font-size: 18px; color: #ffffff; }
+    .inner h3 + .goal { border-top: 0; }
+    .inner-cura { --ac: #ff9b8e; background: #66302d; border-color: #ef8a7c; }
+    .inner-sto { --ac: #ff9cc7; background: #632f4e; border-color: #f08fbe; }
+    .inner-sto label.field { color: #ffd0e6; }
   </style>
 </head>
 <body>
@@ -151,91 +204,103 @@
 
     <!-- OGGI -->
     <section class="tab" id="tab-oggi">
-      <div class="panel">
-        <h2 id="welcome"></h2>
+      <p class="welcome" id="welcome"></p>
+
+      <!-- BLOCCO 1: OBIETTIVI DI OGGI -->
+      <div class="card card-oggi" id="cardOggi">
         <div class="nav-row">
           <button class="icon-btn" id="prevDay" aria-label="Giorno precedente">‹</button>
           <div class="nav-title" id="todayDate"></div>
           <button class="icon-btn" id="nextDay" aria-label="Giorno successivo">›</button>
         </div>
-        <div class="note">
-          <div id="liveText"></div>
-          <div class="bar"><div id="liveBar"></div></div>
+        <h2 class="card-title" id="goalsTitle">Gli obiettivi di oggi</h2>
+        <div id="liveText" class="live-text"></div>
+        <div class="bar"><div id="liveBar"></div></div>
+
+        <div class="goal" id="row-walk">
+          <div class="goal-mark">✓</div>
+          <div class="goal-text"><strong>🚶 Camminata</strong><div class="hint" id="hintWalk"></div></div>
+          <div class="goal-input"><input id="walk" type="number" min="0" inputmode="numeric" placeholder="0"><span>min</span></div>
         </div>
-        <label class="check">
-          <input type="checkbox" id="rest"> Questa è una giornata di riposo
+
+        <label class="goal tap" id="row-meals" for="mealsOk">
+          <div class="goal-mark">✓</div>
+          <div class="goal-text"><strong>🍽️ Alimentazione regolare</strong><div class="hint">Tocca qui se hai mangiato in modo regolare</div></div>
+          <input type="checkbox" id="mealsOk" class="sr">
+        </label>
+        <textarea id="mealsNotes" class="mini" rows="2" placeholder="Annota i pasti (facoltativo)"></textarea>
+
+        <div class="goal" id="row-pleasant">
+          <div class="goal-mark">✓</div>
+          <div class="goal-text"><strong>🎨 Attività piacevole</strong><div class="hint" id="hintPleasant"></div></div>
+          <div class="goal-input"><input id="pleasantMin" type="number" min="0" inputmode="numeric" placeholder="0"><span>min</span></div>
+        </div>
+        <input id="pleasantText" class="mini" placeholder="Cosa hai fatto? (facoltativo)">
+
+        <div class="inner inner-cura">
+        <h3 class="sub">Cura di me</h3>
+        <label class="goal tap" id="row-hygiene" for="hygiene">
+          <div class="goal-mark">✓</div>
+          <div class="goal-text"><strong>🧼 Igiene personale</strong><div class="hint">Tocca qui quando ti sei preso cura di te</div></div>
+          <input type="checkbox" id="hygiene" class="sr">
+        </label>
+
+        <div class="goal" id="row-sleep">
+          <div class="goal-mark">✓</div>
+          <div class="goal-text"><strong>😴 Sonno</strong><div class="hint" id="hintSleep"></div></div>
+          <div class="goal-input"><input id="sleep" type="number" min="0" max="24" step="0.5" inputmode="decimal" placeholder="0"><span>ore</span></div>
+        </div>
+        </div>
+
+        <label class="rest-toggle">
+          <input type="checkbox" id="rest"> Oggi è una giornata di riposo
         </label>
         <div class="note hidden" id="restNote">
           Riposare fa parte del percorso. Va benissimo così. 💚
         </div>
       </div>
 
-      <div class="panel">
-        <h2>Movimento</h2>
-        <label class="field" for="walk">Minuti di camminata</label>
-        <input id="walk" type="number" min="0" inputmode="numeric" placeholder="0">
-        <div class="hint" id="hintWalk"></div>
-      </div>
-
-      <div class="panel">
-        <h2>Alimentazione</h2>
-        <label class="check">
-          <input type="checkbox" id="mealsOk"> Ho mangiato in modo regolare
-        </label>
-        <label class="field" for="mealsNotes">Pasti (facoltativo)</label>
-        <textarea id="mealsNotes" placeholder="Cosa ho mangiato oggi..."></textarea>
-      </div>
-
-      <div class="panel">
-        <h2>Attività piacevole</h2>
-        <label class="field" for="pleasantText">Cosa hai fatto?</label>
-        <input id="pleasantText" placeholder="Per esempio: leggere, disegnare...">
-        <label class="field" for="pleasantMin">Minuti</label>
-        <input id="pleasantMin" type="number" min="0" inputmode="numeric" placeholder="0">
-        <div class="hint" id="hintPleasant"></div>
-      </div>
-
-      <div class="panel">
-        <h2>Cura di me</h2>
-        <label class="check">
-          <input type="checkbox" id="hygiene"> Mi sono preso cura della mia igiene personale
-        </label>
-        <label class="field" for="sleep">Ore di sonno</label>
-        <input id="sleep" type="number" min="0" max="24" step="0.5" inputmode="decimal" placeholder="0">
-        <div class="hint" id="hintSleep"></div>
-      </div>
-
-      <div class="panel">
-        <h2>Come sto</h2>
-        <label class="field" for="mood">Umore</label>
-        <select id="mood">
-          <option value="">Scegli...</option>
-          <option value="1">1 - Molto giù</option>
-          <option value="2">2 - Giù</option>
-          <option value="3">3 - Così così</option>
-          <option value="4">4 - Bene</option>
-          <option value="5">5 - Molto bene</option>
-        </select>
-        <label class="field" for="energy">Energia</label>
-        <select id="energy">
-          <option value="">Scegli...</option>
-          <option value="1">1 - Molto bassa</option>
-          <option value="2">2 - Bassa</option>
-          <option value="3">3 - Media</option>
-          <option value="4">4 - Buona</option>
-          <option value="5">5 - Alta</option>
-        </select>
-      </div>
-
-      <div class="panel">
-        <h2>Diario privato</h2>
+      <!-- BLOCCO 2: DIARIO PERSONALE -->
+      <div class="card card-diario">
+        <h2 class="card-title">Diario personale</h2>
         <p class="small">Solo tu puoi leggerlo. Non viene mai condiviso.</p>
         <textarea id="diary" placeholder="Scrivi quello che vuoi..."></textarea>
+
         <label class="field" for="quote">Frase del giorno</label>
         <input id="quote" placeholder="Una frase che ti accompagna oggi">
+
+        <div class="inner inner-sto">
+        <h3 class="sub">Come sto</h3>
+        <div class="two">
+          <div>
+            <label class="field" for="mood">Umore</label>
+            <select id="mood">
+              <option value="">Scegli...</option>
+              <option value="1">1 - Molto giù</option>
+              <option value="2">2 - Giù</option>
+              <option value="3">3 - Così così</option>
+              <option value="4">4 - Bene</option>
+              <option value="5">5 - Molto bene</option>
+            </select>
+          </div>
+          <div>
+            <label class="field" for="energy">Energia</label>
+            <select id="energy">
+              <option value="">Scegli...</option>
+              <option value="1">1 - Molto bassa</option>
+              <option value="2">2 - Bassa</option>
+              <option value="3">3 - Media</option>
+              <option value="4">4 - Buona</option>
+              <option value="5">5 - Alta</option>
+            </select>
+          </div>
+        </div>
+        </div>
       </div>
 
-      <button id="saveButton" disabled>Salva la giornata</button>
+      <div class="save-bar">
+        <button id="saveButton" disabled>Salva la giornata</button>
+      </div>
     </section>
 
     <!-- STORICO -->
@@ -623,14 +688,19 @@
 
   function updateLive() {
     const d = readForm();
+    const rows = ["row-walk", "row-meals", "row-pleasant", "row-hygiene", "row-sleep"];
     $("restNote").classList.toggle("hidden", !d.rest_day);
+    $("cardOggi").classList.toggle("resting", d.rest_day);
     if (d.rest_day) {
       $("liveText").textContent = "Giornata di riposo: nessun obiettivo da raggiungere.";
       $("liveBar").style.width = "0%";
+      rows.forEach(id => $(id).classList.remove("met"));
       return;
     }
-    const n = countTrue(dayGoals(d, state.settings));
-    $("liveText").textContent = "Obiettivi di questa giornata: " + n + " su " + GOALS_PER_DAY;
+    const g = dayGoals(d, state.settings);
+    const n = countTrue(g);
+    rows.forEach((id, i) => $(id).classList.toggle("met", g[i]));
+    $("liveText").textContent = n + " obiettivi su " + GOALS_PER_DAY + " raggiunti";
     $("liveBar").style.width = (n / GOALS_PER_DAY * 100) + "%";
   }
 
@@ -639,6 +709,7 @@
     const label = parse(state.day).toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long" });
     $("todayDate").textContent = (state.day === todayStr() ? "Oggi, " : "") + label;
     $("nextDay").disabled = state.day >= todayStr();
+    $("goalsTitle").textContent = state.day === todayStr() ? "Gli obiettivi di oggi" : "Gli obiettivi di questo giorno";
     updateLive();
   }
 
