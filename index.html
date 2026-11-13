@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101b17">
+  <title>La mia ripartenza</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #101b17;
+      color: #f2f5f2;
+      font-family: Arial, sans-serif;
+      padding: 24px;
+    }
+    main { max-width: 480px; margin: 45px auto; }
+    h1 { font-size: 32px; margin-bottom: 8px; }
+    .subtitle { color: #aab8af; margin-bottom: 28px; }
+    .panel {
+      background: #1b2922;
+      border: 1px solid #34463a;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    input {
+      background: #101b17;
+      border: 1px solid #506354;
+      color: white;
+    }
+    button {
+      border: 0;
+      background: #8dbb91;
+      color: #102016;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: #34463a;
+      color: white;
+    }
+    .hidden { display: none; }
+    #message { color: #c6d9c9; min-height: 24px; }
+    .small { font-size: 13px; color: #aab8af; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>La mia ripartenza</h1>
+  <p class="subtitle">Un piccolo passo alla volta.</p>
+
+  <section class="panel" id="loginPanel">
+    <h2>Accedi</h2>
+    <input id="username" placeholder="Nome utente" autocomplete="username">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <button id="loginButton">Accedi</button>
+    <button class="secondary" id="registerButton">Crea un account</button>
+    <p class="small">Non serve inserire email o numero di telefono.</p>
+  </section>
+
+  <section class="panel hidden" id="homePanel">
+    <h2>Benvenuto!</h2>
+    <p id="welcome"></p>
+    <p>La tua ripartenza comincia da oggi.</p>
+    <button class="secondary" id="logoutButton">Esci dall'account</button>
+  </section>
+
+  <p id="message"></p>
+</main>
+
+<script>
+  // INSERISCI QUI I TUOI DATI SUPABASE
+  const SUPABASE_URL = "https://mlvbtjqshaeqcynujtal.supabase.co/rest/v1/";
+  const SUPABASE_KEY = "sb_publishable_XwP9_JfNcMjYz__d-5_LGQ_Ozr9gdAM";
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const $ = id => document.getElementById(id);
+  const syntheticEmail = username =>
+    username.toLowerCase() + "@login.lamiaripartenza.app";
+
+  function showMessage(text) {
+    $("message").textContent = text;
+  }
+
+  function showHome(username) {
+    $("loginPanel").classList.add("hidden");
+    $("homePanel").classList.remove("hidden");
+    $("welcome").textContent = "Ciao, " + username + "!";
+  }
+
+  $("registerButton").onclick = async () => {
+    const username = $("username").value.trim().toLowerCase();
+    const password = $("password").value;
+
+    if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+      return showMessage("Usa 3-20 caratteri: lettere, numeri o _.");
+    }
+    if (password.length < 8) {
+      return showMessage("La password deve avere almeno 8 caratteri.");
+    }
+
+    showMessage("Creazione account in corso...");
+
+    const { data, error } = await db.auth.signUp({
+      email: syntheticEmail(username),
+      password,
+      options: { data: { username } }
+    });
+
+    if (error) return showMessage(error.message);
+
+    if (data.session) {
+      showHome(username);
+      showMessage("Account creato!");
+    } else {
+      showMessage("Registrazione avviata. Controlliamo la configurazione.");
+    }
+  };
+
+  $("loginButton").onclick = async () => {
+    const username = $("username").value.trim().toLowerCase();
+    const password = $("password").value;
+
+    if (!username || !password) {
+      return showMessage("Inserisci nome utente e password.");
+    }
+
+    showMessage("Accesso in corso...");
+
+    const { data, error } = await db.auth.signInWithPassword({
+      email: syntheticEmail(username),
+      password
+    });
+
+    if (error) return showMessage("Accesso non riuscito: controlla i dati.");
+
+    showHome(username);
+    showMessage("Accesso effettuato!");
+  };
+
+  $("logoutButton").onclick = async () => {
+    await db.auth.signOut();
+    $("homePanel").classList.add("hidden");
+    $("loginPanel").classList.remove("hidden");
+    showMessage("Hai effettuato la disconnessione.");
+  };
+
+  db.auth.getSession().then(async ({ data }) => {
+    if (data.session) {
+      const { data: profile } = await db
+        .from("profiles")
+        .select("username")
+        .eq("id", data.session.user.id)
+        .single();
+
+      if (profile) showHome(profile.username);
+    }
+  });
+</script>
+</body>
+</html>
